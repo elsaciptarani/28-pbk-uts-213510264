@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JADWAL UTS</title>
+	<link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+  <div class="todo-app">
+	<h2>Jadwal Ujian Tengah Semester 4A <img src="src/Gambar2.1.png" ></h2>
+	
+  <div class="row">
+		<label for="task">Tambahkan Mata Kuliah:</label>
+		<input type="text" id="task" name="task" placeholder="nama mata kuliah">
+		<button type="button" onclick="addTask()">Add</button>
+	</form>
+  </div>
+  
+<ul>
+	<li>Pemrograman Berbasis Komputer</li>
+	<li>Matematika Diskrit</li>
+	<li>Jaringan Komputer</li>
+</ul>
+
+  <ul id="taskList">
+	
+</ul>
+	
+	<label for="filter">Filter Jadwal:</label>
+	<select id="filter" name="filter" onchange="filterTasks()">
+		
+		<option value="all">Seluruh Mata Kuliah</option>
+		<option value="unfinished">Mata Kuliah Belum Selesai</option>
+	
+	</select>
+</div>
+</div>
+	
+	<script>
+		let tasks = []; 
+		
+		function addTask() {
+			
+			let taskInput = document.getElementById("task").value;
+			
+			
+			tasks.push({
+				name: taskInput,
+				completed: false
+			});
+			
+			
+			document.getElementById("task").value = "";
+			
+			
+			showTasks();
+		}
+		
+		function showTasks() {
+			
+			let filterOption = document.getElementById("filter").value;
+			
+			
+			document.getElementById("taskList").innerHTML = "";
+			
+			
+			for (let i = 0; i < tasks.length; i++) {
+				let task = tasks[i];
+				
+				
+				if (filterOption === "unfinished" && task.completed === true) {
+					continue;
+				}
+				
+				
+				let listItem = document.createElement("li");
+				let listItemText = document.createTextNode(task.name);
+				
+				
+				let checkBox = document.createElement("input");
+				checkBox.type = "checkbox";
+				checkBox.onclick = function() {
+					task.completed = !task.completed;
+					showTasks();
+				}
+				if (task.completed === true) {
+					checkBox.checked = true;
+					listItem.classList.add("checked");
+				}
+				listItem.appendChild(checkBox);
+				
+				
+				listItem.appendChild(listItemText);
+				
+				
+				let deleteButton = document.createElement("button");
+				deleteButton.innerText = "Hapus";
+				deleteButton.onclick = function() {
+					tasks.splice(i, 1);
+					showTasks();
+				}
+				listItem.appendChild(deleteButton);
+				
+				
+				document.getElementById("taskList").appendChild(listItem);
+			}
+		}
+		
+		function filterTasks() {
+			showTasks();
+		}
+		
+		
+		showTasks();
+	</script>
+</body>
+</html>
