@@ -90,18 +90,6 @@ label {
 }
 
 
-
-
-
-
-.matkul{
-  content: '';
-  position: absolute;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-}
-
 input[type="checkbox"] {
   margin-right: 10px;
 }
